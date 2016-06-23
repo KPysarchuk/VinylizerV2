@@ -1,31 +1,57 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    string file_name = "";
+    if (Request.Cookies["VinylizerFileName"] != null)
+    {
+        file_name = (Request.Cookies["VinylizerFileName"]).Value;
+    }
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+@*@using (Html.BeginForm("UploadAudioFile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="file" class="form-control"/>
+        <input type="submit" class="btn btn-default" name="Submit" id="Submit" value="Upload" />
+    }*@
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div>
+
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="col-md-12">
+        <audio controls id="audio">
+            <source id="mp3_src" src="/Home/GetAudioFileForPlay?fileName=Mozart.mp3" type="audio/mp3">
+        </audio>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-md-12">
+        <input type="button" class="btn btn-info" name="Download" id="Download" value="Download" onClick="download('@file_name')" />
+    </div>
+</div>
+<div class="row vi">
+    <div class="col-md-12">
+        <input id="ef1" class="effect_slider" type="text"/>
+        <input id="ef2" class="effect_slider" type="text"/>
+        <input id="ef3" class="effect_slider" type="text"/>
+        <input id="ef4" class="effect_slider" type="text"/>
+        <input id="ef5" class="effect_slider" type="text"/>
+        <input id="ef6" class="effect_slider" type="text"/>
+    </div>
+    <div style="display:none">
+        <audio loop id="filter1" data-player="ef1">
+            <source id="mp3_filter1_src" src="/Home/GetFilterForPlay?filterId=1" type="audio/mp3">
+        </audio>
+        <audio loop id="filter2" data-player="ef2">
+            <source id="mp3_filter2_src" src="/Home/GetFilterForPlay?filterId=2" type="audio/mp3">
+        </audio>
+        <audio loop id="filter3" data-player="ef3">
+            <source id="mp3_filter3_src" src="/Home/GetFilterForPlay?filterId=3" type="audio/mp3">
+        </audio>
+        <audio loop id="filter4" data-player="ef4">
+            <source id="mp3_filter4_src" src="/Home/GetFilterForPlay?filterId=4" type="audio/mp3">
+        </audio>
+        <audio loop id="filter5" data-player="ef5">
+            <source id="mp3_filter5_src" src="/Home/GetFilterForPlay?filterId=5" type="audio/mp3">
+        </audio>
+        <audio loop id="filter6" data-player="ef6">
+            <source id="mp3_filter6_src" src="/Home/GetFilterForPlay?filterId=6" type="audio/mp3">
+        </audio>
     </div>
 </div>
