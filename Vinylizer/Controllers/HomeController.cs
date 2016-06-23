@@ -33,6 +33,7 @@ namespace Vinylizer.Controllers
             return File(ms, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
 
+        [HttpPost]
         public ActionResult GetAudioFileForDownload(string fileName, FilterModel[] filters)
         {
             int usedFilters = 1;
