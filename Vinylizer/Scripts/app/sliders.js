@@ -43,25 +43,22 @@ $('input[type=radio]').on('change', function() {
 
 var downloadSound = function () {
     var filename = $('input[name=trackName]:checked').val();
-
-    var filters = [];
+    var data = {
+        fileName: filename
+    }
 
     $.each($(".slider .slider-track .min-slider-handle"), function (k, v) {
         var volume = Number($(v).attr("aria-valuenow"));
         var key = k.toString();
-        filters.push({ Id:k+1, Volume:volume });
+        data["Volume"+ (k + 1)] = volume;
     });
-
-    var data = {
-        fileName: filename,
-        filters: filters
-    }
 
     console.log(data)
 
-    $.post("/Home/GetAudioFileForDownload", data, function (res) {
-        console.log(res)
-    });
+    //$.get("/Home/GetAudioFileForDownload", data, function (res) {
+    //    console.log(res)
+    //});
+    download("/Home/GetAudioFileForDownload", data, "GET");
 
 }
 
@@ -74,7 +71,7 @@ var download = function (url, data, method) {
         if (data != null && data != '') {
             $.each(data.split('&'), function () {
                 var pair = this.split('=');
-                inputs += '<input type="hidden" name="' + pair[0].replace(/\[\]/g, "") + '" value="' + kendo.toString(pair[1].replace(/\+/g, " ")) + '" />';
+                inputs += '<input type="hidden" name="' + pair[0].replace(/\[\]/g, "") + '" value="' + pair[1].replace(/\+/g, " ").toString() + '" />';
             });
         }
         $('<form action="' + url + '" method="' + (method || 'post') + '">' + inputs + '</form>').appendTo('body').submit().remove();
