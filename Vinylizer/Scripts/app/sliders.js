@@ -59,8 +59,10 @@ var downloadSound = function () {
 
     console.log(data)
 
+    $.post("/Home/GetAudioFileForDownload", data, function (res) {
+        console.log(res)
+    });
 
-    download("/Home/GetAudioFileForDownload", data);
 }
 
 var download = function (url, data, method) {
@@ -70,11 +72,9 @@ var download = function (url, data, method) {
         var inputs = '';
         data = decodeURIComponent(data).replace(/\[\d+\]/g, "");
         if (data != null && data != '') {
-            console.log(data)
             $.each(data.split('&'), function () {
                 var pair = this.split('=');
-                console.log(pair)
-                inputs += '<input type="hidden" name="' + pair[0].replace(/\[\]/g, "") + '" value="' + pair[1].toString().replace(/\+/g, " ") + '" />';
+                inputs += '<input type="hidden" name="' + pair[0].replace(/\[\]/g, "") + '" value="' + kendo.toString(pair[1].replace(/\+/g, " ")) + '" />';
             });
         }
         $('<form action="' + url + '" method="' + (method || 'post') + '">' + inputs + '</form>').appendTo('body').submit().remove();
