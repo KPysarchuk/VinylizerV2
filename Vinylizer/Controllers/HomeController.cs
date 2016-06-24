@@ -73,7 +73,7 @@ namespace Vinylizer.Controllers
                 string mixName = string.Format("Converted{0}", fileName);
                 byte[] fileBytes = System.IO.File.ReadAllBytes(HttpContext.Server.MapPath((string.Format("~/App_Data/{0}", mixName))));
          
-            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, mixName);
+            return File(fileBytes, "audio/mpeg", mixName);
         }
     }
 }
