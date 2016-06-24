@@ -65,7 +65,7 @@ namespace Vinylizer.Controllers
                     string[] files = new string[200];
                     for (int i = 0; i < files.Length; i++)
                     {
-                        files[i] = wayToAppData + "Newfilter" + filter.Id.ToString()+ "Volume" + ".mp3";
+                        files[i] = wayToAppData + "Newfilter" + filter.Id.ToString() + ".mp3";
                     }
                     var output = wayToAppData + "Newfilter" + filter.Id.ToString() + ".mp3";
                     Combine(files, output);
