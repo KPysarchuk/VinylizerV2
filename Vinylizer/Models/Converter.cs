@@ -19,7 +19,7 @@ namespace Vinylizer.Models
         {
             string filterName = filterId.ToString();
             Random rnd = new Random();
-            string output = string.Format("{1}Newfilter{0}.mp3", filterName, wayToAppData);
+            string output = string.Format("{1}Newfilter{0}Volume.mp3", filterName, wayToAppData);
             string command = string.Format(@"-y -i {3}{0}.mp3 -af ""volume=0.{1}"" {2}", filterName, volumePart, output, wayToAppData).Replace("\"", string.Empty);
             var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
             ffMpeg.Invoke(command);
