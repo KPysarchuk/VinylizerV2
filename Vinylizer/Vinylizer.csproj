@@ -145,12 +145,6 @@
     <Content Include="App_Data\6.mp3" />
     <Content Include="App_Data\beethoven.mp3" />
     <Content Include="App_Data\ffmpeg.exe" />
-    <Content Include="App_Data\loop1.txt" />
-    <Content Include="App_Data\loop2.txt" />
-    <Content Include="App_Data\loop3.txt" />
-    <Content Include="App_Data\loop4.txt" />
-    <Content Include="App_Data\loop5.txt" />
-    <Content Include="App_Data\loop6.txt" />
     <Content Include="App_Data\Mozart.mp3" />
     <Content Include="App_Data\Vivaldi.mp3" />
     <Content Include="Content\bootstrap.css" />

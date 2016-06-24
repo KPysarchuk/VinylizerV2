@@ -41,9 +41,16 @@ namespace Vinylizer.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult GetAudioFileForDownload(string fileName, FilterModel[] filters)
+        [HttpGet]
+        public ActionResult GetAudioFileForDownload(string fileName, int Volume1, int Volume2, int Volume3, int Volume4, int Volume5, int Volume6)
         {
+            List<FilterModel> filters = new List<FilterModel>();
+            filters.Add(new FilterModel { Id = 1, Volume = Volume1 });
+            filters.Add(new FilterModel { Id = 2, Volume = Volume2 });
+            filters.Add(new FilterModel { Id = 3, Volume = Volume3 });
+            filters.Add(new FilterModel { Id = 4, Volume = Volume4 });
+            filters.Add(new FilterModel { Id = 5, Volume = Volume5 });
+            filters.Add(new FilterModel { Id = 6, Volume = Volume6 });
             int usedFilters = 1;
             Mp3FileReader reader = new Mp3FileReader(HttpContext.Server.MapPath(("~/App_Data/" + fileName)));
             TimeSpan duration = reader.TotalTime;
@@ -70,10 +77,14 @@ namespace Vinylizer.Controllers
             {
                 Converter.Merge(mergeString, fileName, usedFilters, wayToAppData);
             }
-                string mixName = string.Format("Converted{0}", fileName);
-                byte[] fileBytes = System.IO.File.ReadAllBytes(HttpContext.Server.MapPath((string.Format("~/App_Data/{0}", mixName))));
-         
-            return File(fileBytes, "audio/mpeg", mixName);
+            string Ok = "Done";
+            string mixName = string.Format("Converted{0}", fileName);
+            byte[] fileBytes = System.IO.File.ReadAllBytes(HttpContext.Server.MapPath((string.Format("~/App_Data/{0}", mixName))));
+            MemoryStream ms = new MemoryStream(fileBytes);
+            FileStreamResult fsr = new FileStreamResult(ms, "audio/mpeg");
+            fsr.FileDownloadName = mixName;
+
+            return fsr;
         }
     }
 }
