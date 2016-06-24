@@ -21,6 +21,26 @@
     var ef4 = $("#ef4").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef4.getValue()) }).data('slider');
     var ef5 = $("#ef5").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef5.getValue()) }).data('slider');
     var ef6 = $("#ef6").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef6.getValue()) }).data('slider');
+
+    $("#audio")[0].addEventListener("ended", function () {
+        $.each($('[data-player]'), function (k, v) {
+            v.pause();
+            v.currentTime = 0;
+        });
+    });
+
+    $("#audio")[0].addEventListener("pause", function () {
+        $.each($('[data-player]'), function (k, v) {
+            v.pause();
+            v.currentTime = 0;
+        });
+    });
+
+    $("#audio")[0].addEventListener("play", function () {
+        $.each($('[data-player]'), function (k, v) {
+            v.play();
+        });
+    });
 });
 
 var handleFilterSound = function (id,volume) {
