@@ -53,7 +53,7 @@ var handleFilterSound = function (id,volume) {
 $('input[type=radio]').on('change', function() {
     var audio = $("#audio");
     audio[0].pause();
-    $("#audio").attr("src", "/Home/GetAudioFileForPlay?fileName=" + $('input[name=trackName]:checked').val());
+    $("#audio").attr("src", "/vinylizer/Home/GetAudioFileForPlay?fileName=" + $('input[name=trackName]:checked').val());
     audio[0].load();//suspends and restores all audio element
     audio[0].currentTime = 0;
 
@@ -78,7 +78,7 @@ var downloadSound = function () {
     //$.get("/Home/GetAudioFileForDownload", data, function (res) {
     //    console.log(res)
     //});
-    download("/Home/GetAudioFileForDownload", data, "GET");
+    download("/vinylizer/Home/GetAudioFileForDownload", data, "GET");
 
 }
 
