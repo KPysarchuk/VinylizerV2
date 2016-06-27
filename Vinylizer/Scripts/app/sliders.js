@@ -1,13 +1,11 @@
 ﻿$(document).ready(function () {
     $.each($(".effect_slider"),function(k,v){
         $(v).slider({
-            reversed: true,
             step: 1,
             min: 0,
             max: 100,
             value: 0,
-            orientation: 'vertical',
-            tooltip_position: 'top'
+            tooltip:'hide'
         });
     })
 
@@ -46,6 +44,7 @@
 var handleFilterSound = function (id,volume) {
     console.log(id, volume);
     $("audio[data-player='" + id + "']")[0].volume = volume / 100;
+    $("[data-value-placeholder='" + id + "']").text(volume);
     //$("#filter")[0].currentTime = 0;
     //$("#filter")[0].play();
 };

@@ -9,3 +9,7 @@
 body {
     padding: 50px;
 }
+
+.sliders > * {
+    margin: 20px 0;
+}
