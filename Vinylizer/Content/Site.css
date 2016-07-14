@@ -10,6 +10,20 @@ body {
     padding: 50px;
 }
 
-.sliders > * {
+.sliders > div > div > * {
     margin: 20px 0;
+}
+
+.slider  {
+  width: 80% !important;
+}
+
+.col-md-3 {
+  width: 17%;
+  padding-right: 0;
+}
+
+.col-md-9 {
+  padding: 0;
+  width: 75%;
 }

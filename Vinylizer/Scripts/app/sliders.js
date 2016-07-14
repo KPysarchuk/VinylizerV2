@@ -1,11 +1,11 @@
 ﻿$(document).ready(function () {
-    $.each($(".effect_slider"),function(k,v){
+    $.each($(".effect_slider"), function (k, v) {
         $(v).slider({
             step: 1,
             min: 0,
             max: 100,
             value: 0,
-            tooltip:'hide'
+            tooltip: 'hide'
         });
     })
 
@@ -27,6 +27,12 @@
         });
     });
 
+    $("#audio")[0].addEventListener("volumechange", function () {
+        $("#audio")[0].volume = 1;
+    });
+
+
+
     $("#audio")[0].addEventListener("pause", function () {
         $.each($('[data-player]'), function (k, v) {
             v.pause();
@@ -41,7 +47,7 @@
     });
 });
 
-var handleFilterSound = function (id,volume) {
+var handleFilterSound = function (id, volume) {
     console.log(id, volume);
     $("audio[data-player='" + id + "']")[0].volume = volume / 100;
     $("[data-value-placeholder='" + id + "']").text(volume);
@@ -49,7 +55,7 @@ var handleFilterSound = function (id,volume) {
     //$("#filter")[0].play();
 };
 
-$('input[type=radio]').on('change', function() {
+$('input[type=radio]').on('change', function () {
     var audio = $("#audio");
     audio[0].pause();
     $("#audio").attr("src", "/vinylizer/Home/GetAudioFileForPlay?fileName=" + $('input[name=trackName]:checked').val());
@@ -69,7 +75,7 @@ var downloadSound = function () {
     $.each($(".slider .slider-track .min-slider-handle"), function (k, v) {
         var volume = Number($(v).attr("aria-valuenow"));
         var key = k.toString();
-        data["Volume"+ (k + 1)] = volume;
+        data["Volume" + (k + 1)] = volume;
     });
 
     console.log(data)

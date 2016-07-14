@@ -1,36 +1,74 @@
 ﻿<div class="row">
     <div class="col-md-12">
-        <input type="radio" id="trackName" name="trackName" value="beethoven.mp3"/> beethoven <br />
-        <input type="radio" id="trackName" name="trackName" value="Mozart.mp3" checked/> Mozart<br />
+        <input type="radio" id="trackName" name="trackName" value="beethoven.mp3" /> Beethoven <br />
+        <input type="radio" id="trackName" name="trackName" value="Mozart.mp3" checked /> Mozart<br />
         <input type="radio" id="trackName" name="trackName" value="Vivaldi.mp3" /> Vivaldi<br />
     </div>
-    <div class="col-md-4">
-        <audio controls id="audio">
+</div>
+<div class="row vi">
+    <div class="col-md-8">
+        <audio controls id="audio" style="width:88%">
             <source id="mp3_src" src="/vinylizer/Home/GetAudioFileForPlay?fileName=Mozart.mp3" type="audio/mp3">
         </audio>
     </div>
-    <div class="col-md-2">
-        <input type="button" class="btn btn-info" name="Download" id="Download" value="Download" onClick="downloadSound()" />
-    </div>
 </div>
 <div class="row vi sliders">
-    <div class="col-md-12">
-        Insects on vinyl: <input id="ef1" class="effect_slider" type="text" /><span><span data-value-placeholder="ef1">0</span>%</span>
-    </div>
-    <div class="col-md-12">
-        Leadout groove: <input id="ef2" class="effect_slider" type="text" /><span><span data-value-placeholder="ef2">0</span>%</span>
-    </div>
-    <div class="col-md-12">
-        Crack Vinyl: <input id="ef3" class="effect_slider" type="text" /><span><span data-value-placeholder="ef3">0</span>%</span>
-    </div>
-    <div class="col-md-12">
-        Record Noise: <input id="ef4" class="effect_slider" type="text" /><span><span data-value-placeholder="ef4">0</span>%</span>
-    </div>
-    <div class="col-md-12">
-        Crackling Vinyl 2: <input id="ef5" class="effect_slider" type="text" /><span><span data-value-placeholder="ef5">0</span>%</span>
-    </div>
-    <div class="col-md-12">
-        Ice cracking: <input id="ef6" class="effect_slider" type="text" /><span><span data-value-placeholder="ef6">0</span>%</span>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row" style="display:none">
+                <div class="col-md-3">
+                    Insects on vinyl:
+                </div>
+                <div class="col-md-9">
+                    <input id="ef1" class="effect_slider" type="text" /><span><span data-value-placeholder="ef1">0</span>%</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Dust:
+                </div>
+                <div class="col-md-9">
+                    <input id="ef2" class="effect_slider" type="text" /><span><span data-value-placeholder="ef2">0</span>%</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Crackle:
+                </div>
+                <div class="col-md-9">
+                    <input id="ef3" class="effect_slider" type="text" /><span><span data-value-placeholder="ef3">0</span>%</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Noise:
+                </div>
+                <div class="col-md-9">
+                    <input id="ef4" class="effect_slider" type="text" /><span><span data-value-placeholder="ef4">0</span>%</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Scratches:
+                </div>
+                <div class="col-md-9">
+                    <input id="ef5" class="effect_slider" type="text" /><span><span data-value-placeholder="ef5">0</span>%</span>
+                </div>
+            </div>
+            <div class="row" style="display:none">
+                <div class="col-md-3">
+                    Ice cracking:
+                </div>
+                <div class="col-md-9">
+                    <input id="ef6" class="effect_slider" type="text" /><span><span data-value-placeholder="ef6">0</span>%</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="button" class="btn btn-info btn-block" name="Download" id="Download" style=" width 89%;" value="Download" onClick="downloadSound()" />
+                </div>
+            </div>
+        </div>
     </div>
     <div style="display:none">
         <audio loop id="filter1" autoplay controls data-player="ef1">
