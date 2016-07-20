@@ -15,9 +15,9 @@
 <div class="row vi sliders">
     <div class="row">
         <div class="col-md-8">
-            <div class="row" style="display:none">
+            <div class="row">
                 <div class="col-md-3">
-                    Insects on vinyl:
+                    Dust 1:
                 </div>
                 <div class="col-md-9">
                     <input id="ef1" class="effect_slider" type="text" /><span><span data-value-placeholder="ef1">0</span>%</span>
@@ -25,7 +25,7 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    Dust:
+                    Dust 2:
                 </div>
                 <div class="col-md-9">
                     <input id="ef2" class="effect_slider" type="text" /><span><span data-value-placeholder="ef2">0</span>%</span>
@@ -33,7 +33,7 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    Crackle:
+                    Crackle 1:
                 </div>
                 <div class="col-md-9">
                     <input id="ef3" class="effect_slider" type="text" /><span><span data-value-placeholder="ef3">0</span>%</span>
@@ -41,7 +41,7 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    Noise:
+                    Crackle 2:
                 </div>
                 <div class="col-md-9">
                     <input id="ef4" class="effect_slider" type="text" /><span><span data-value-placeholder="ef4">0</span>%</span>
@@ -49,18 +49,43 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    Scratches:
+                    Crackle 3:
                 </div>
                 <div class="col-md-9">
                     <input id="ef5" class="effect_slider" type="text" /><span><span data-value-placeholder="ef5">0</span>%</span>
                 </div>
             </div>
-            <div class="row" style="display:none">
+            <div class="row">
                 <div class="col-md-3">
-                    Ice cracking:
+                    Noise 1:
                 </div>
                 <div class="col-md-9">
                     <input id="ef6" class="effect_slider" type="text" /><span><span data-value-placeholder="ef6">0</span>%</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    Noise 2:
+                </div>
+                <div class="col-md-9">
+                    <input id="ef7" class="effect_slider" type="text" /><span><span data-value-placeholder="ef7">0</span>%</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Scratches 1:
+                </div>
+                <div class="col-md-9">
+                    <input id="ef8" class="effect_slider" type="text" /><span><span data-value-placeholder="ef8">0</span>%</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Scratches 2:
+                </div>
+                <div class="col-md-9">
+                    <input id="ef9" class="effect_slider" type="text" /><span><span data-value-placeholder="ef9">0</span>%</span>
                 </div>
             </div>
             <div class="row">
@@ -88,6 +113,15 @@
         </audio>
         <audio loop id="filter6" autoplay controls data-player="ef6">
             <source id="mp3_filter6_src" src="/vinylizer/Home/GetFilterForPlay?filterId=6" type="audio/mp3">
+        </audio>
+        <audio loop id="filter6" autoplay controls data-player="ef7">
+            <source id="mp3_filter6_src" src="/vinylizer/Home/GetFilterForPlay?filterId=7" type="audio/mp3">
+        </audio>
+        <audio loop id="filter6" autoplay controls data-player="ef8">
+            <source id="mp3_filter6_src" src="/vinylizer/Home/GetFilterForPlay?filterId=8" type="audio/mp3">
+        </audio>
+        <audio loop id="filter6" autoplay controls data-player="ef9">
+            <source id="mp3_filter6_src" src="/vinylizer/Home/GetFilterForPlay?filterId=9" type="audio/mp3">
         </audio>
     </div>
 </div>
