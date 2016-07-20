@@ -19,9 +19,9 @@
     var ef4 = $("#ef4").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef4.getValue()) }).data('slider');
     var ef5 = $("#ef5").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef5.getValue()) }).data('slider');
     var ef6 = $("#ef6").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef6.getValue()) }).data('slider');
-    var ef7 = $("#ef7").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef6.getValue()) }).data('slider');
-    var ef8 = $("#ef8").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef6.getValue()) }).data('slider');
-    var ef9 = $("#ef9").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef6.getValue()) }).data('slider');
+    var ef7 = $("#ef7").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef7.getValue()) }).data('slider');
+    var ef8 = $("#ef8").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef8.getValue()) }).data('slider');
+    var ef9 = $("#ef9").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef9.getValue()) }).data('slider');
 
     $("#audio")[0].addEventListener("ended", function () {
         $.each($('[data-player]'), function (k, v) {
