@@ -43,7 +43,7 @@ namespace Vinylizer.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAudioFileForDownload(string fileName, int Volume1, int Volume2, int Volume3, int Volume4, int Volume5, int Volume6)
+        public ActionResult GetAudioFileForDownload(string fileName, int Volume1, int Volume2, int Volume3, int Volume4, int Volume5, int Volume6, int Volume7, int Volume8, int Volume9)
         {
             List<FilterModel> filters = new List<FilterModel>();
             filters.Add(new FilterModel { Id = 1, Volume = Volume1 });
@@ -52,6 +52,9 @@ namespace Vinylizer.Controllers
             filters.Add(new FilterModel { Id = 4, Volume = Volume4 });
             filters.Add(new FilterModel { Id = 5, Volume = Volume5 });
             filters.Add(new FilterModel { Id = 6, Volume = Volume6 });
+            filters.Add(new FilterModel { Id = 7, Volume = Volume7 });
+            filters.Add(new FilterModel { Id = 8, Volume = Volume8 });
+            filters.Add(new FilterModel { Id = 9, Volume = Volume9 });
             int usedFilters = 1;
             Mp3FileReader reader = new Mp3FileReader(HttpContext.Server.MapPath(("~/App_Data/" + fileName)));
             TimeSpan duration = reader.TotalTime;

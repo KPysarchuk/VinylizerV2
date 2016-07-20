@@ -26,7 +26,7 @@ namespace Vinylizer.Models
 
             return output;
         }
-
+        //Legacy
         public static string Loop(int filterId, TimeSpan duration)
         {
             Random rnd = new Random();
