@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+var rPath = '/vinylizer';
+
+$(document).ready(function () {
     $.each($(".effect_slider"), function (k, v) {
         $(v).slider({
             step: 1,
@@ -61,7 +63,7 @@ var handleFilterSound = function (id, volume) {
 $('input[type=radio]').on('change', function () {
     var audio = $("#audio");
     audio[0].pause();
-    $("#audio").attr("src", "/vinylizer/Home/GetAudioFileForPlay?fileName=" + $('input[name=trackName]:checked').val());
+    $("#audio").attr("src", rPath + "/Home/GetAudioFileForPlay?fileName=" + $('input[name=trackName]:checked').val());
     audio[0].load();//suspends and restores all audio element
     audio[0].currentTime = 0;
 
@@ -86,7 +88,7 @@ var downloadSound = function () {
     //$.get("/Home/GetAudioFileForDownload", data, function (res) {
     //    console.log(res)
     //});
-    download("/vinylizer/Home/GetAudioFileForDownload", data, "GET");
+    download(window.path + rPath + "/Home/GetAudioFileForDownload", data, "GET");
 
 }
 
