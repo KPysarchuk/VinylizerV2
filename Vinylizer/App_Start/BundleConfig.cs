@@ -20,6 +20,7 @@ namespace Vinylizer
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                    "~/Scripts/soundmanager2.js",
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
