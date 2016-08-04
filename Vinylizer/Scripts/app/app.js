@@ -1,7 +1,13 @@
-﻿$(document).ready(function () {
-    var trackName = getCookie("VinylizerFileName");
+var currentSound = null,
+    maxTimeout = 3000,
+    timeoutStep = 0,
+    soundInterval = 600, //ms
+	volumeValue = 0,
+    fInterval;
 
-   
+﻿$(document).ready(function () {
+    initSoundManager();
+    var trackName = getCookie("VinylizerFileName");
 
     $("#filterVolume").change(function () {
         console.log(trackName, this.value);
@@ -26,6 +32,7 @@
         return false;
     });
 
+/*
     $("#audio")[0].addEventListener("ended", function () {
         console.log("ended");
         $("#filter")[0].pause();
@@ -36,7 +43,7 @@
         console.log("ended");
         $("#filter")[0].play();
     });
-
+    */
 });
 
 
@@ -52,3 +59,53 @@ function getCookie(name) {
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+
+var initSoundManager = function () {
+    soundManager.setup({
+        url: 'swf/',
+        allowScriptAccess: 'always',
+        preferFlash: false,
+        html5PollingInterval: 50,
+        flashVersion: 9, // required for AAC playback
+        debugMode: false,
+        useHighPerformance: true,
+        onready: function () {
+            console.debug('soundManager ready!');
+        },
+        ontimeout: function () {
+            console.log("soundManager time out.");
+        }
+    });
+};
+
+var createSoundFilter = function (filterId) {
+    if (currentSound) {
+        currentSound.stop();
+        soundManager.destroySound(currentSound.id);
+    }
+
+    currentSound = soundManager.createSound({
+        id: 'sound_' + filterId,
+        url: '/Home/GetFilterForPlay?filterId=' + filterId,
+        autoLoad: true,
+        autoPlay: false,
+        onload: function () {
+
+        },
+        whileplaying: function () {
+            var position = this.position
+
+            if (position > soundInterval) {
+                currentSound.stop();
+            }
+        },
+        whileloading: function () {
+            
+        },
+        volume: volumeValue
+    });
+
+    //currentSound.play();
+    //currentSound.pause();
+    //currentSound.stop();
+};
