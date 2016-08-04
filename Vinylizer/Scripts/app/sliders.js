@@ -25,11 +25,22 @@ $(document).ready(function () {
     var ef8 = $("#ef8").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef8.getValue()) }).data('slider');
     var ef9 = $("#ef9").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef9.getValue()) }).data('slider');
 
+
+    var ef1_1 = $("#ef1_1").on('slide', function () { handleFrequencySound(this.getAttribute('id'), ef1_1.getValue()) }).data('slider');
+
     $("#audio")[0].addEventListener("ended", function () {
+        /*
         $.each($('[data-player]'), function (k, v) {
             v.pause();
             v.currentTime = 0;
         });
+        */
+        console.debug("Main sound stopped");
+        clearInterval(fInterval);
+        if (currentSound) {
+            currentSound.stop();
+            soundManager.destroySound(currentSound.id);
+        }
     });
 
     $("#audio")[0].addEventListener("volumechange", function () {
@@ -39,26 +50,28 @@ $(document).ready(function () {
 
 
     $("#audio")[0].addEventListener("pause", function () {
+        /*
         $.each($('[data-player]'), function (k, v) {
             v.pause();
             v.currentTime = 0;
         });
+        */
+        console.debug("Main sound paused");
+        clearInterval(fInterval);
+        currentSound.pause();
     });
 
     $("#audio")[0].addEventListener("play", function () {
+        /*
         $.each($('[data-player]'), function (k, v) {
             v.play();
         });
+        */
+        console.debug("Main sound played");
+        clearInterval(fInterval);
+        changeFrequancy();
     });
 });
-
-var handleFilterSound = function (id, volume) {
-    console.log(id, volume);
-    $("audio[data-player='" + id + "']")[0].volume = volume / 100;
-    $("[data-value-placeholder='" + id + "']").text(volume);
-    //$("#filter")[0].currentTime = 0;
-    //$("#filter")[0].play();
-};
 
 $('input[type=radio]').on('change', function () {
     var audio = $("#audio");
@@ -106,4 +119,45 @@ var download = function (url, data, method) {
         }
         $('<form action="' + url + '" method="' + (method || 'post') + '">' + inputs + '</form>').appendTo('body').submit().remove();
     };
+};
+
+var handleFilterSound = function (id, volume) {
+    //$("audio[data-player='" + id + "']")[0].volume = volume / 100;
+    $("[data-value-placeholder='" + id + "']").text(volume);
+
+    console.debug('sound volume', volume);
+    if (currentSound) {
+        currentSound.setVolume(volume);
+    } else {
+        volumeValue = volume;
+    }
+    //$("#filter")[0].currentTime = 0;
+    //$("#filter")[0].play();
+};
+
+var handleFrequencySound = function (id, volume) {
+    console.log(id, volume);
+    $("[data-value-placeholder='" + id + "']").text(volume);
+
+    //volumeValue
+    timeoutStep = maxTimeout * (volume / 100);
+
+    clearInterval(fInterval);
+    if (currentSound) currentSound.stop();
+    changeFrequancy();
+};
+
+var changeFrequancy = function () {
+    var timeMs = timeoutStep + soundInterval;
+
+    fInterval = setInterval(function () {
+        console.log(timeoutStep + soundInterval, timeoutStep, soundInterval);
+        if (currentSound) {
+            currentSound.stop();
+            currentSound.play();
+        } else {
+            createSoundFilter(1);
+            currentSound.play();
+        }
+    }, timeMs);
 };
