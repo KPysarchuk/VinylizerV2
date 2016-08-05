@@ -1,8 +1,8 @@
 var currentSound = null,
     maxTimeout = 3000,
     timeoutStep = 0,
-    soundInterval = 600, //ms
-	volumeValue = 0,
+    soundInterval = 1000, //ms
+    volumeValue = 0,
     fInterval;
 
 ﻿$(document).ready(function () {
