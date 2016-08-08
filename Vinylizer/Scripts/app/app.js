@@ -1,14 +1,16 @@
-var currentSound = null,
-    maxTimeout = 3000,
+var currentSounds = [],
+    maxTimeout = 10000,
     timeoutStep = 0,
     soundInterval = 1000, //ms
-    volumeValue = 0,
-    fInterval;
+	volumeValues = [],
+    trackPlayed = false,
+    fIntervals = [];
 
-﻿$(document).ready(function () {
+$(document).ready(function () {
     initSoundManager();
-    var trackName = getCookie("VinylizerFileName");
 
+    var trackName = getCookie("VinylizerFileName");
+    
     $("#filterVolume").change(function () {
         console.log(trackName, this.value);
 
@@ -31,19 +33,6 @@ var currentSound = null,
 
         return false;
     });
-
-/*
-    $("#audio")[0].addEventListener("ended", function () {
-        console.log("ended");
-        $("#filter")[0].pause();
-        $("#filter")[0].currentTime = 0;
-    });
-
-    $("#audio")[0].addEventListener("onplay", function () {
-        console.log("ended");
-        $("#filter")[0].play();
-    });
-    */
 });
 
 
@@ -79,14 +68,15 @@ var initSoundManager = function () {
 };
 
 var createSoundFilter = function (filterId) {
-    if (currentSound) {
-        currentSound.stop();
-        soundManager.destroySound(currentSound.id);
+    if (currentSounds[filterId]) {
+        currentSounds[filterId].stop();
+        soundManager.destroySound(currentSounds[filterId].id);
     }
+    var soundId = filterId.match(/\d+/)[0];
 
-    currentSound = soundManager.createSound({
-        id: 'sound_' + filterId,
-        url: '/Home/GetFilterForPlay?filterId=' + filterId,
+    currentSounds[filterId] = soundManager.createSound({
+        id: 'sound_' + soundId,
+        url: rPath + '/Home/GetFilterForPlay?filterId=' + soundId,
         autoLoad: true,
         autoPlay: false,
         onload: function () {
@@ -96,16 +86,12 @@ var createSoundFilter = function (filterId) {
             var position = this.position
 
             if (position > soundInterval) {
-                currentSound.stop();
+                currentSounds[filterId].stop();
             }
         },
         whileloading: function () {
             
         },
-        volume: volumeValue
+        volume: volumeValues[filterId]
     });
-
-    //currentSound.play();
-    //currentSound.pause();
-    //currentSound.stop();
 };
