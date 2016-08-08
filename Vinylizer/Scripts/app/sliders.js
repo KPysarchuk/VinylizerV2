@@ -26,50 +26,48 @@ $(document).ready(function () {
     var ef9 = $("#ef9").on('slide', function () { handleFilterSound(this.getAttribute('id'), ef9.getValue()) }).data('slider');
 
 
-    var ef1_1 = $("#ef1_1").on('slide', function () { handleFrequencySound(this.getAttribute('id'), ef1_1.getValue()) }).data('slider');
+    var ef1_f = $("#ef1_f").on('slide', function () { handleFrequencySound(this.getAttribute('id'), ef1_f.getValue()) }).data('slider');
+    var ef3_f = $("#ef3_f").on('slide', function () { handleFrequencySound(this.getAttribute('id'), ef3_f.getValue()) }).data('slider');
+    var ef6_f = $("#ef6_f").on('slide', function () { handleFrequencySound(this.getAttribute('id'), ef6_f.getValue()) }).data('slider');
+    var ef8_f = $("#ef8_f").on('slide', function () { handleFrequencySound(this.getAttribute('id'), ef8_f.getValue()) }).data('slider');
 
     $("#audio")[0].addEventListener("ended", function () {
-        /*
-        $.each($('[data-player]'), function (k, v) {
-            v.pause();
-            v.currentTime = 0;
+        window.trackPlayed = false;
+        $.each($('[data-frequency-id]'), function (k, v) {
+            var data = $(v).data(); //frequencyId
+            clearInterval(fIntervals[data.frequencyId]);
+            if (currentSounds[data.frequencyId]) {
+                currentSounds[data.frequencyId].stop();
+                soundManager.destroySound(currentSounds[data.frequencyId].id);
+            }
         });
-        */
-        console.debug("Main sound stopped");
-        clearInterval(fInterval);
-        if (currentSound) {
-            currentSound.stop();
-            soundManager.destroySound(currentSound.id);
-        }
     });
 
     $("#audio")[0].addEventListener("volumechange", function () {
         $("#audio")[0].volume = 1;
     });
 
-
-
     $("#audio")[0].addEventListener("pause", function () {
-        /*
-        $.each($('[data-player]'), function (k, v) {
-            v.pause();
-            v.currentTime = 0;
+        window.trackPlayed = false;
+        $.each($('[data-frequency-id]'), function (k, v) {
+            var data = $(v).data(); //frequencyId
+            clearInterval(fIntervals[data.frequencyId]);
+            if (currentSounds[data.frequencyId]) { currentSounds[data.frequencyId].pause(); }
         });
-        */
-        console.debug("Main sound paused");
-        clearInterval(fInterval);
-        currentSound.pause();
     });
 
     $("#audio")[0].addEventListener("play", function () {
-        /*
-        $.each($('[data-player]'), function (k, v) {
-            v.play();
+        window.trackPlayed = true;
+        $.each($('[data-frequency-id]'), function (k, v) {
+            var data = $(v).data(), //frequencyId
+                value = $(v).text();
+
+            if (value > 0) {
+                clearInterval(fIntervals[data.frequencyId]);
+                changeFrequancy(data.frequencyId);
+            }
+            
         });
-        */
-        console.debug("Main sound played");
-        clearInterval(fInterval);
-        changeFrequancy();
     });
 });
 
@@ -79,9 +77,6 @@ $('input[type=radio]').on('change', function () {
     $("#audio").attr("src", rPath + "/Home/GetAudioFileForPlay?fileName=" + $('input[name=trackName]:checked').val());
     audio[0].load();//suspends and restores all audio element
     audio[0].currentTime = 0;
-
-    //audio[0].play(); changed based on Sprachprofi's comment below
-    //audio[0].oncanplaythrough = audio[0].play();
 });
 
 var downloadSound = function () {
@@ -121,43 +116,44 @@ var download = function (url, data, method) {
     };
 };
 
-var handleFilterSound = function (id, volume) {
-    //$("audio[data-player='" + id + "']")[0].volume = volume / 100;
+var handleFilterSound = function (id, volume) {    
     $("[data-value-placeholder='" + id + "']").text(volume);
+    var filterId = id + '_f';
 
-    console.debug('sound volume', volume);
-    if (currentSound) {
-        currentSound.setVolume(volume);
+    if (currentSounds[filterId]) {
+        currentSounds[filterId].setVolume(volume);
     } else {
-        volumeValue = volume;
+        volumeValues[filterId] = volume;
     }
-    //$("#filter")[0].currentTime = 0;
-    //$("#filter")[0].play();
 };
 
 var handleFrequencySound = function (id, volume) {
-    console.log(id, volume);
-    $("[data-value-placeholder='" + id + "']").text(volume);
+    $("[data-frequency-id='" + id + "']").text(volume);    
 
-    //volumeValue
-    timeoutStep = maxTimeout * (volume / 100);
+    if (volume > 0) {
+        timeoutStep = maxTimeout * (volume / 100);
 
-    clearInterval(fInterval);
-    if (currentSound) currentSound.stop();
-    changeFrequancy();
+        if (window.trackPlayed) {
+            clearInterval(fIntervals[id]);
+            if (currentSounds[id]) currentSounds[id].stop();
+            changeFrequancy(id);
+        }
+    } else {
+        clearInterval(fIntervals[id]);
+        if (currentSounds[id]) currentSounds[id].stop();
+    }
 };
 
-var changeFrequancy = function () {
+var changeFrequancy = function (filterId) {
     var timeMs = timeoutStep + soundInterval;
 
-    fInterval = setInterval(function () {
-        console.log(timeoutStep + soundInterval, timeoutStep, soundInterval);
-        if (currentSound) {
-            currentSound.stop();
-            currentSound.play();
+    fIntervals[filterId] = setInterval(function () {        
+        if (currentSounds[filterId]) {
+            currentSounds[filterId].stop();
+            currentSounds[filterId].play();
         } else {
-            createSoundFilter(1);
-            currentSound.play();
+            createSoundFilter(filterId);
+            currentSounds[filterId].play();
         }
     }, timeMs);
 };
