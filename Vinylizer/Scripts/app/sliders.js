@@ -131,7 +131,7 @@ var handleFrequencySound = function (id, volume) {
     $("[data-frequency-id='" + id + "']").text(volume);    
 
     if (volume > 0) {
-        timeoutStep = maxTimeout * (volume / 100);
+        timeoutStep = maxTimeout * ((100 - volume) / 100) + 120;
 
         if (window.trackPlayed) {
             clearInterval(fIntervals[id]);
