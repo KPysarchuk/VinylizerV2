@@ -147,13 +147,19 @@ var handleFrequencySound = function (id, volume) {
 var changeFrequancy = function (filterId) {
     var timeMs = timeoutStep + soundInterval;
 
+    playSound(filterId);
+
     fIntervals[filterId] = setInterval(function () {        
-        if (currentSounds[filterId]) {
-            currentSounds[filterId].stop();
-            currentSounds[filterId].play();
-        } else {
-            createSoundFilter(filterId);
-            currentSounds[filterId].play();
-        }
+        playSound(filterId);
     }, timeMs);
+};
+
+var playSound = function (filterId) {
+    if (currentSounds[filterId]) {
+        currentSounds[filterId].stop();
+        currentSounds[filterId].play();
+    } else {
+        createSoundFilter(filterId);
+        currentSounds[filterId].play();
+    }
 };
